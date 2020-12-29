@@ -1,90 +1,104 @@
-<canvas id="gc" width="400" height="400"></canvas>
-<h1>Tail Count: <span id="count"/></h1>
-<h1 id="hi-score"></h1>
-<script>
-    window.onload=function() {
-        canvas=document.getElementById("gc");
-        contex=canvas.getContext("2d");
-        document.addEventListener("keydown",keyPush);
-        setInterval(game, 1000/15);
-    }
-    px=py=10;
-    gs=tc=20;
-    ax=ay=15;
-    xv=yv=0;
-    trail=[];
-    tail=5;
-    hiScore=5;
-    counter=document.getElementById("count");
-    highScoreEl=document.getElementById("hi-score");
-    function game() {
-        px+=xv;
-        py+=yv;
-        if(px<0) {
-            px=tc-1;
-        }
-        if(px>tc-1) {
-            px=0;
-        }
-        if(py<0) {
-            py=tc-1;
-        }
-        if(py>tc-1) {
-            py=0;
-        }
-        contex.fillStyle="black";
-        contex.fillRect(0,0,canvas.width,canvas.height);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        contex.fillStyle="lime";
-        for(let i=0; i<trail.length; i++) {
-            contex.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
-            if(trail[i].x==px && trail[i].y==py) {
-                if(tail>hiScore) {
-                    hiScore=tail;
-                    highScoreEl.innerText=`High Score: ${hiScore}`;
-                }
-                tail=5;
+    <title>Snake</title>
+</head>
+<body>
+    <main>
+        <canvas id="gc" width="400" height="400"></canvas>
+        <h1>Tail Count: <span id="count"/></h1>
+        <h1 id="hi-score"></h1>
+        <script>
+            window.onload=function() {
+                canvas=document.getElementById("gc");
+                contex=canvas.getContext("2d");
+                document.addEventListener("keydown",keyPush);
+                setInterval(game, 1000/15);
             }
-        }
-        trail.push({x:px,y:py});
-        while(trail.length>tail) {
-            trail.shift();
-        }
-        
-        if(ax==px && ay==py) {
-            tail++;
-            ax=Math.floor(Math.random()*tc);
-            ay=Math.floor(Math.random()*tc);
-        }
+            px=py=10;
+            gs=tc=20;
+            ax=ay=15;
+            xv=yv=0;
+            trail=[];
+            tail=5;
+            hiScore=5;
+            counter=document.getElementById("count");
+            highScoreEl=document.getElementById("hi-score");
+            function game() {
+                px+=xv;
+                py+=yv;
+                if(px<0) {
+                    px=tc-1;
+                }
+                if(px>tc-1) {
+                    px=0;
+                }
+                if(py<0) {
+                    py=tc-1;
+                }
+                if(py>tc-1) {
+                    py=0;
+                }
+                contex.fillStyle="black";
+                contex.fillRect(0,0,canvas.width,canvas.height);
 
-        contex.fillStyle="red";
-        contex.fillRect(ax*gs,ay*gs,gs-2,gs-2);
+                contex.fillStyle="lime";
+                for(let i=0; i<trail.length; i++) {
+                    contex.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
+                    if(trail[i].x==px && trail[i].y==py) {
+                        if(tail>hiScore) {
+                            hiScore=tail;
+                            highScoreEl.innerText=`High Score: ${hiScore}`;
+                        }
+                        tail=5;
+                    }
+                }
+                trail.push({x:px,y:py});
+                while(trail.length>tail) {
+                    trail.shift();
+                }
+                
+                if(ax==px && ay==py) {
+                    tail++;
+                    ax=Math.floor(Math.random()*tc);
+                    ay=Math.floor(Math.random()*tc);
+                }
 
-        counter.innerText=tail;
-    }
-    function keyPush(event) {
-        switch(event.keyCode) {
-            case 37:
-                if(!(xv==1 && yv==0)) {
-                    xv=-1;yv=0;
+                contex.fillStyle="red";
+                contex.fillRect(ax*gs,ay*gs,gs-2,gs-2);
+
+                counter.innerText=tail;
+            }
+            function keyPush(event) {
+                switch(event.keyCode) {
+                    case 37:
+                        if(!(xv==1 && yv==0)) {
+                            xv=-1;yv=0;
+                        }
+                        break;
+                    case 38:
+                        if(!(xv==0 && yv==1)) {
+                            xv=0;yv=-1;
+                        }
+                        break;
+                    case 39:
+                        if(!(xv==-1 && yv==0)) {
+                            xv=1;yv=0;
+                        }
+                        break;
+                    case 40:
+                        if(!(xv==0 && yv==-1)) {
+                            xv=0;yv=1;
+                        }
+                        break;
+                    default:
                 }
-                break;
-            case 38:
-                if(!(xv==0 && yv==1)) {
-                    xv=0;yv=-1;
-                }
-                break;
-            case 39:
-                if(!(xv==-1 && yv==0)) {
-                    xv=1;yv=0;
-                }
-                break;
-            case 40:
-                if(!(xv==0 && yv==-1)) {
-                    xv=0;yv=1;
-                }
-                break;
-            default:
-        }
-    }
-</script>
+            }
+        </script>
+    </main>
+</body>
+</html>
