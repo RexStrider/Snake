@@ -28,6 +28,10 @@
             hiScore=5;
             counter=document.getElementById("count");
             highScoreEl=document.getElementById("hi-score");
+            index=0;
+            colors=['lime', 'yellow', 'orange', 'magenta', 'purple', 'indigo', 'blue', 'cyan'];
+            snakeColor=colors[index];
+            
             function game() {
                 px+=xv;
                 py+=yv;
@@ -46,7 +50,7 @@
                 contex.fillStyle="black";
                 contex.fillRect(0,0,canvas.width,canvas.height);
 
-                contex.fillStyle="lime";
+                contex.fillStyle=snakeColor;
                 for(let i=0; i<trail.length; i++) {
                     contex.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
                     if(trail[i].x==px && trail[i].y==py) {
@@ -66,6 +70,8 @@
                     tail++;
                     ax=Math.floor(Math.random()*tc);
                     ay=Math.floor(Math.random()*tc);
+                    index++;
+                    snakeColor=colors[index % colors.length];
                 }
 
                 contex.fillStyle="red";
