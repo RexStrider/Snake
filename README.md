@@ -1,2 +1,2 @@
 # Snake
-A Snake-like game.
+A Snake-like game. Coded in JavaScript.
