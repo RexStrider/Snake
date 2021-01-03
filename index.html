@@ -9,9 +9,11 @@
 </head>
 <body>
     <main>
-        <canvas id="gc" width="400" height="400"></canvas>
-        <h1>Tail Count: <span id="count"/></h1>
-        <h1 id="hi-score"></h1>
+        <div style="display:flex; align-items:center; justify-content:center;">
+            <canvas id="gc" width="400" height="400"></canvas>
+            <h1>Tail Count: <span id="count"/></h1>
+            <h1 id="hi-score"></h1>
+        </div>
         <script>
             window.onload=function() {
                 canvas=document.getElementById("gc");
